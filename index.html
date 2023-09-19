@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style/style.css">
+    <script src="/js/main.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>To do list</title>
+</head>
+<body>
+    <header>
+        <div class="container_header">
+            <img src="/style/assets/LOGO.svg" alt="Logo">
+        </div>
+    </header>
+
+    <div class="page_title">
+        <span>Bem vindo de volta, <span class="nickname">catito</span>&#129304 </span>
+    </div>
+
+    <div class="to_do_list_title">
+        <div class="to_do_list_title_text">
+            <img src="/style/assets/LISTA ICONE.svg" alt="List Symbol">
+            <span>Lista de Tarefas</span>
+        </div>
+
+        <div class="to_do_list_title_hr">
+            <hr class="bold_hr"><hr class="default_hr">
+        </div>
+    </div>
+
+    <section class="to_do_list_section">
+        <div class="box" id="open-list-box">
+            <div class="open_box_header box_header">
+                <div class="open_box_header_title_and_couter title_and_counter">
+                    <button class="task_name">ABERTO</button>
+                    <span class="open_list_counter list_counter">0</span>
+                </div>
+
+                <button 
+                    class="create_new_task_button"
+                    onclick="createNewModal('Open')"
+                >
+                    +
+                </button>
+            </div>
+                <div class="open_tasks_container tasks_container">
+            </div>
+        </div>
+        <div class="ongoing_list_box box">
+            <div class="ongoing_box_header box_header">
+                <div class="ongoing_box_header_title_and_couter title_and_counter">
+                    <button class="ongoing_task_name task_name">EM ANDAMENTO</button>
+                    <span class="ongoing_list_counter list_counter">0</span>
+                </div>
+
+                <button class="create_new_task_button" onclick="createNewModal('Ongoing')">+</button>
+            </div>
+            <div class="ongoing_tasks_container tasks_container"></div>
+        </div>
+        <div class="finished_list_box box">
+            <div class="finished_box_header box_header">
+                <div class="finished_box_header_title_and_couter title_and_counter">
+                    <button class="finished_task_name task_name">FINALIZADO</button>
+                    <span class="finished_list_counter list_counter">0</span>
+                </div>
+            </div>
+            <div class="finished_tasks_container tasks_container"></div>
+        </div>
+    </section>
+    <div id="fade" class="hide"></div>
+    <div id="modal" class="hide">
+    </div>
+    
+</body>
+</html>
