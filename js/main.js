@@ -5,25 +5,12 @@ let ongoingTaskCounter = document.querySelector(".ongoing_list_counter")
 let finishedTasksContainer = document.querySelector(".finished_tasks_container")
 let finishedTaskCounter = document.querySelector(".finished_list_counter")
 
-/* Draggable features */
-
-
-
-/* Draggable features */
-
 let body = document.querySelector("body")
 let taskTitle
 let taskDescription
 let openArray = [];
 let ongoingArray = [];
 let finishedArray = [];
-let arrayToAdd = []
-let modalInfo = {
-    title: "", 
-    description: "",
-    id: arrayToAdd.length-1
-};
-
 
 const arrayString = {
     Open: 'Open',
@@ -96,8 +83,11 @@ function openModal(id, columnType) {
     taskTitle = document.getElementById("task-title")
     taskDescription = document.getElementById("task-description")
 
-    taskDescription.value = element.description;
-    taskTitle.value = element.title;
+    if(element) {
+        taskDescription.value = element.description;
+        taskTitle.value = element.title;
+    }
+
     modal.classList.remove("hide");
     fade.classList.remove("hide");
 }
@@ -109,7 +99,7 @@ function createList(arrayTasks,containerToAdd) {
     arrayTasks.forEach(element => {
 
         if(arrayTasks === openArray) {
-            modalPreview += `<div class="modal_preview_box" draggable="true" onclick="openModal(${element.id}, '${arrayString.Open}')">
+            modalPreview += `<div class="modal_preview_box" draggable="true" onclick="openModal(${element.id+1}, '${arrayString.Open}')">
             <div class="modal_preview_text">
                 <span>${element.description}</span>
             </div>
@@ -119,9 +109,8 @@ function createList(arrayTasks,containerToAdd) {
             </div>
         </div>`
         };
-
         if(arrayTasks === ongoingArray) {
-            modalPreview += `<div class="modal_preview_box" draggable="true" onclick="openModal(${element.id}, '${arrayString.Ongoing}')">
+            modalPreview += `<div class="modal_preview_box" draggable="true" onclick="openModal(${element.id+1}, '${arrayString.Ongoing}')">
             <div class="modal_preview_text">
             <span>${element.description}</span>
             </div>
@@ -130,9 +119,9 @@ function createList(arrayTasks,containerToAdd) {
             <span>${element.title}</span>
             </div>
         </div>`
-        }
+        };
         if(arrayTasks === finishedArray) {
-            modalPreview += `<div class="modal_preview_box"  draggable="true" onclick="openModal(${finishedArray.length-1}, '${arrayString.Finished}')">
+            modalPreview += `<div class="modal_preview_box"  draggable="true" onclick="openModal(${element.id+1}, '${arrayString.Finished}')">
             <div class="modal_preview_text">
             <span>${element.description}</span>
             </div>
@@ -141,13 +130,12 @@ function createList(arrayTasks,containerToAdd) {
             <span>${element.title}</span>
             </div>
         </div>`
-        }
+        };
         
     });
 
     containerToAdd.innerHTML = modalPreview;
 }
-
 // open - ongoing - finished
 function createNewModal(columnType) {
     if (columnType === arrayString.Open) {
@@ -155,7 +143,7 @@ function createNewModal(columnType) {
         openArray.push({
             title: "", 
             description: "",
-            id: openArray.length-1
+            id: `${openArray.length-1}-Open`
         })
 
         openModal(openArray.length-1, arrayString.Open);
@@ -165,7 +153,7 @@ function createNewModal(columnType) {
         ongoingArray.push({
             title: "", 
             description: "",
-            id: ""
+            id: ongoingArray.length-1
         })
         
         openModal(ongoingArray.length-1, arrayString.Ongoing);
@@ -213,3 +201,47 @@ function updateTask(id, columnType) {
 
     closeModal();
 }
+
+/* Draggable features */
+
+const tasksContainer = document.querySelectorAll(".tasks_container")
+
+document.addEventListener("dragstart", (event) => {
+    event.target.classList.add("dragging");
+});
+
+document.addEventListener("dragend", (event) => {
+    event.target.classList.remove(".footer_orange");
+    event.target.classList.remove("dragging");
+});
+
+tasksContainer.forEach((modalCard) => {
+    modalCard.addEventListener("dragover", (event) => {
+        const dragging = document.querySelector(".dragging");
+        const applyAfter = getNewPosition(modalCard, event.clientY);
+
+        if(applyAfter) {
+            applyAfter.insertAdjacentElement("afterend", dragging)
+        } else {
+            modalCard.prepend(dragging);
+        }
+        
+    })
+});
+
+function getNewPosition(modalCards, posY) {
+    const cardsNot = modalCards.querySelectorAll(".modal_preview_box:not(.dragging)")
+    let result;
+
+    for (let refer_card of cardsNot) {
+        const box = refer_card.getBoundingClientRect();
+        const boxCenterY = box.y + box.height / 2
+        console.log(box.y)
+
+        if(posY >= boxCenterY) result - refer_card;
+    }
+
+    return result;
+}
+
+/* Draggable features */

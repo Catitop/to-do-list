@@ -104,6 +104,7 @@ header {
     max-width: 75.815rem;
 
     display: flex;
+    align-items: flex-start;
     gap: 0.88rem;
 
     margin: auto;
@@ -117,12 +118,10 @@ header {
 
     width: 24.6875rem;
 
+    min-height: 46.625rem;
+
     display: flex;
     flex-direction: column;
-}
-
-#open-list-box {
-    min-height: 46.625rem;
 }
 
 .box_header {
@@ -182,6 +181,7 @@ header {
     flex-direction: column;
 
     max-width: 24.6875rem;
+    min-height: 46.625rem;
 
     gap: 0.87rem;
 }
