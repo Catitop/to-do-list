@@ -598,6 +598,12 @@ header {
     .time_status {
         font-size: 0.8rem;
     }
+    .green {
+        font-size: 0.8rem;
+    }
+    .orange {
+        font-size: 0.7rem;
+    }
     * {
         overflow-x: hidden;
     }
