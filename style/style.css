@@ -529,6 +529,10 @@ header {
     text-align: justify;
 }
 
+.modal-body {
+    height: 82%;
+}
+
 .modal-body textarea {
     margin-bottom: 1rem;
     margin-top: 1.5rem;
@@ -536,7 +540,8 @@ header {
 
     width: 68rem;
     max-width: 95%;
-    height: 35rem;
+    height: 90%;
+    outline: none;
 
     background-color: #252836;
     border: none;
